@@ -1,0 +1,6 @@
+/AUDIT_LOG
+/__pycache__
+/test*
+/.idea
+*.bak
+/bat
