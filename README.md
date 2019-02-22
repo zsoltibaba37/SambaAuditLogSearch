@@ -60,7 +60,7 @@ Linux
 $ ausearch.py usernames.txt /AUDIT_LOG
 ```
 
-##### Note
+#### Note
 
 Returns results back in time.
 
