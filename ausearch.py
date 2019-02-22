@@ -12,8 +12,18 @@ import sys
 from sys import argv, platform
 import codecs
 
-c = 120
+if len(argv) < 3 :
+    print("Missing argument! ! !")
+    print("Usage:\n"
+          "Windows > ausearch.py usernames.txt d:\\somewhere\\audit_log\n"
+          "or\n"
+          "Linux   $ ausearch.py usernames.txt /somewhere/audit_log")
+    sys.exit(1)
 
+c = 120
+LogPath = argv[2]
+FileNames = []
+AllFileContent = []
 
 def clearscreen():
     if platform == "linux" or platform == "linux2":
@@ -40,33 +50,23 @@ def endl():
     fline()
 
 
-if len(argv) < 3 :
-    print("Missing argument! ! !")
-    print("Usage:\n"
-          "Windows > ausearch.py usernames.txt d:\\somewhere\\audit_log\n"
-          "or\n"
-          "Linux   $ ausearch.py usernames.txt /somewhere/audit_log")
-    sys.exit(1)
+beginl()
+print("A log fájlok beolvasása eltarthat néhány másodpercig.".center(c))
+print("It may take a few seconds to read the log files.".center(c))
+print("[CTRL-C]-re kilép a programból. - Press [CTRL-C] to exit.".center(c))
+endl()
+
 
 # Read usernames from file
 with codecs.open(argv[1], 'r', 'UTF-8') as f:
     UserNames = f.read().splitlines()
-
-LogPath = argv[2]
-
-FileNames = []
-AllFileContent = []
-
-beginl()
-print("A log fájlok beolvasása eltarthat néhány másodpercig.".center(c))
-print("It may take a few seconds to read the log files.".center(c))
-endl()
 
 
 # Read Filenames
 for (dirpath, dirnames, filenames) in walk(LogPath):
     FileNames.extend(filenames)
     break
+
 
 # Read all Files content
 for y in FileNames:
@@ -79,13 +79,16 @@ for y in FileNames:
 FilElement = [s for s in AllFileContent if "message repeated" not in s]
 
 
+# Main function
 def main():
     try:
         while True:
             #############################################################################################################
-            # Readout the filenames and ask the username
+            # Readout and ask the user name
+            clearscreen()
+            fline()
             for i, username in enumerate(UserNames):
-                print(i, "-", username)
+                print(f"{i} - {username}")
 
             fline()
             User = range_check("Válassz felhasználót. - Choose a user. [Ex.: 1]: ", 0, len(UserNames)-1)
@@ -94,28 +97,31 @@ def main():
             User = [s for s in FilElement if UserNames[User] in s]
 
             # Ask the filename or the file extension
-            FindData = name_check("Mi a fájl neve vagy kiterjesztése? - What is the file name or extension? [Ex.: xls; 4012_1.pdf]: ")
+            Data = []
+            while len(Data) == 0:
+                FindData = name_check("Mi a fájl neve vagy kiterjesztése? - What is the file name or extension? [Ex.: xls; 4012_1.pdf]: ")
 
-            # This is the end result
-            Data = [s for s in User if FindData in s]
-            if len(Data) == 0:
-                sys.exit("Nincs találat! No results found!")
+                # This is the end result
+                Data = [s for s in User if FindData in s]
+                if len(Data) == 0:
+                    print(f"Nem találta a(z) [{FindData}] fájlt! - Can't find [{FindData}] file!")
 
             # How many results to list
             bit = (range_check(f"Hány sort listázzon? - How many lines to list? [min:1 max: {len(Data)}]: ", 1, len(Data))) * -1
 
             beginl()
-
             # Writes out the requested last result
             y = 1
-            for i in Data[bit:]:
-                print(f"{y}.", i, end='')
+            for d in Data[bit:]:
+                print(f"{y}. {d}", end='')
                 y += 1
 
             endl()
-            #####################################################################################
-            input("Nyomj egy [Entert] a folytatáshoz! - Press [Enter] to continue!")
+            line()
+            input("Nyomj egy [Entert] a folytatáshoz! - Press [Enter] to continue!".center(c))
+            print("[CTRL-C]-re kilép a programból. - Press [CTRL-C] to exit.".center(c))
             clearscreen()
+            #############################################################################################################
     except KeyboardInterrupt:
         sys.exit("\nViszlát - Bye Bye")
 

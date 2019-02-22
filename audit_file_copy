@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+#
+cat /var/log/samba/audit.log > /AUDIT_LOG/audit_files_$(date +%F).txt
