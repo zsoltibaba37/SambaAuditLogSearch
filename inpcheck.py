@@ -92,5 +92,4 @@ def float_check(question):
                     y = True
                 except:
                     pass
-
     return f
