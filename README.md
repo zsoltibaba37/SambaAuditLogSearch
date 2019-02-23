@@ -42,7 +42,7 @@ Brian
 
 #### Important
 
-The "autochk" program does not check the contents of the AUDIT LOG folder.
+The "ausearch.py" program does not check the contents of the AUDIT_LOG folder.
 
 Opens everything that find in it.
 
