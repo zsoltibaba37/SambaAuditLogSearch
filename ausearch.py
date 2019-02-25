@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.7
 # -*- coding: UTF-8 -*-
 
 __author__ = "Zsolt Pető"
@@ -31,6 +31,11 @@ def clearscreen():
     elif platform == "win32":
         os.system('cls')
 
+
+if platform == "linux" or platform == "linux2":
+    fo='/'
+elif platform == "win32":
+    fo='\\'
 
 def fline():
     print("#"*c)
@@ -70,7 +75,7 @@ for (dirpath, dirnames, filenames) in walk(LogPath):
 
 # Read all Files content
 for y in FileNames:
-    with codecs.open(LogPath+"\\"+y, 'r', 'UTF-8') as f:
+    with codecs.open(LogPath+fo+y, 'r', 'UTF-8') as f:
         for i in f:
             AllFileContent.append(i)
 
