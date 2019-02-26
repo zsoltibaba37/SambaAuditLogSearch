@@ -123,8 +123,8 @@ def main():
 
             endl()
             line()
-            input("Nyomj egy [Entert] a folytatáshoz! - Press [Enter] to continue!".center(c))
             print("[CTRL-C]-re kilép a programból. - Press [CTRL-C] to exit.".center(c))
+            input("Nyomj egy [Entert] a folytatáshoz! - Press [Enter] to continue!".center(c))
             clearscreen()
             #############################################################################################################
     except KeyboardInterrupt:
