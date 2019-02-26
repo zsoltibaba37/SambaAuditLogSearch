@@ -116,10 +116,14 @@ def main():
 
             beginl()
             # Writes out the requested last result
-            y = 1
+            y, x = 1, 1
             for d in Data[bit:]:
                 print(f"{y}. {d}", end='')
+                if x == 20:
+                    input("\nNyomj egy [Entert] a lista folytatásához. - Press [Enter] to continue the list.\n")
+                    x = 0
                 y += 1
+                x += 1
 
             endl()
             line()
