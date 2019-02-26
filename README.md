@@ -14,7 +14,7 @@ Name is as you want. I name it audit_file_copy.
 #
 cat /var/log/samba/audit.log > /AUDIT_LOG/audit_files_$(date +%F).txt
 ```
-- I setup the crontab, to run Monday to Saturday.
+- I setup the crontab, to run Monday to Saturday. Ones a day copy the audit.log file to /AUDIT_LOG folder.
 
 ```
 $ crontab -e
@@ -42,11 +42,11 @@ Brian
 
 #### Important
 
-The "ausearch.py" program does not check the contents of the AUDIT_LOG folder.
+**The "ausearch.py" program does not check the contents of the AUDIT_LOG folder.**
 
-Opens everything that find in it.
+**Opens everything that find in it. (all .txt files)**
 
-Therefore, you should check the contents of the folder before starting it.
+**Therefore, you should check the contents of the folder before starting it.**
 
 #### Usage
 
@@ -62,8 +62,6 @@ $ ausearch.py usernames.txt /AUDIT_LOG
 
 #### Note
 
-Returns results back in time.
+Returns results back in time. If there are 2135 matches and the choice is 20.
 
-If there are 2135 matches and the choice is 20.
-
-Then write the last 20 lines.
+Then the program show the last 20 line.
