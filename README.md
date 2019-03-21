@@ -57,7 +57,7 @@ Windows
 or
 
 Linux
-$ ausearch.py usernames.txt /AUDIT_LOG
+$ ./ausearch.py usernames.txt /AUDIT_LOG
 ```
 
 #### Note
