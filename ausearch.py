@@ -17,7 +17,7 @@ if len(argv) < 3 :
     print("Usage:\n"
           "Windows > ausearch.py usernames.txt d:\\somewhere\\audit_log\n"
           "or\n"
-          "Linux   $ ausearch.py usernames.txt /somewhere/audit_log")
+          "Linux   $ ./ausearch.py usernames.txt /somewhere/audit_log")
     sys.exit(1)
 
 c = 120
