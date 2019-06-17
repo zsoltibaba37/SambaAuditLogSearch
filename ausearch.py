@@ -68,9 +68,10 @@ with codecs.open(argv[1], 'r', 'UTF-8') as f:
 
 
 # Read Filenames
-for (dirpath, dirnames, filenames) in walk(LogPath):
+for (dirpath, dirnames, filenames) in walk(LogPath, topdown = True):
     FileNames.extend(filenames)
     break
+FileNames.sort()
 
 
 # Read all Files content
