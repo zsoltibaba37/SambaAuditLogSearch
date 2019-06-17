@@ -55,6 +55,14 @@ def endl():
     fline()
 
 
+def unique(list1):
+    unique_list = []
+    for x in list1:
+       if x not in unique_list:
+            unique_list.append(x)
+    return unique_list
+
+
 beginl()
 print("A log fájlok beolvasása eltarthat néhány másodpercig.".center(c))
 print("It may take a few seconds to read the log files.".center(c))
@@ -115,10 +123,13 @@ def main():
             # How many results to list
             bit = (range_check(f"Hány sort listázzon? - How many lines to list? [min:1 max: {len(Data)}]: ", 1, len(Data))) * -1
 
+            # Unique = Sort out the same lines
+            EndData = unique(Data)
+
             beginl()
             # Writes out the requested last result
             y, x = 1, 1
-            for d in Data[bit:]:
+            for d in EndData[bit:]:
                 print(f"{y}. {d}", end='')
                 if x == 20:
                     input("\nNyomj egy [Entert] a lista folytatásához. - Press [Enter] to continue the list.\n")
