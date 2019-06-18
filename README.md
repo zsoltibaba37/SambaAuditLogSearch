@@ -24,23 +24,10 @@ $ crontab -e
 00 13 * * 1-6 /usr/local/bin/audit_file_copy
 ```
 
-- The usernames.txt include the user names, line by line.
-```
-Marky
-Ricky
-Danny
-Terry
-Mikey
-Davey
-Timmy
-Tommy
-Joey
-Robby
-Johnny
-Brian
-```
 
 #### Important
+
+**It can now only be used with "sudo". Because a bash script uses 'pdbedit'.
 
 **The "ausearch.py" program does not check the contents of the AUDIT_LOG folder.**
 
@@ -51,13 +38,8 @@ Brian
 #### Usage
 
 ```
-Windows
-> ausearch.py usernames.txt d:\somewhere\audit_log
-
-or
-
-Linux
 $ ./ausearch.py usernames.txt /AUDIT_LOG
+
 ```
 
 #### Note
