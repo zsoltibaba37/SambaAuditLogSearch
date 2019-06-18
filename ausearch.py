@@ -11,19 +11,22 @@ from os import walk
 import sys
 from sys import argv, platform
 import codecs
+import subprocess
+import re
 
-if len(argv) < 3 :
+
+if len(argv) < 2 :
     print("Missing argument! ! !")
     print("Usage:\n"
-          "Windows > ausearch.py usernames.txt d:\\somewhere\\audit_log\n"
-          "or\n"
-          "Linux   $ ./ausearch.py usernames.txt /somewhere/audit_log")
+          "Linux   $ ./ausearch.py /somewhere/audit_log")
     sys.exit(1)
 
+
 c = 120
-LogPath = argv[2]
+LogPath = argv[1]
 FileNames = []
 AllFileContent = []
+
 
 def clearscreen():
     if platform == "linux" or platform == "linux2":
@@ -31,11 +34,6 @@ def clearscreen():
     elif platform == "win32":
         os.system('cls')
 
-
-if platform == "linux" or platform == "linux2":
-    fo='/'
-elif platform == "win32":
-    fo='\\'
 
 def fline():
     print("#"*c)
@@ -63,6 +61,12 @@ def unique(list1):
     return unique_list
 
 
+if platform == "linux" or platform == "linux2":
+    fo = '/'
+elif platform == "win32":
+    fo = '\\'
+
+
 beginl()
 print("A log fájlok beolvasása eltarthat néhány másodpercig.".center(c))
 print("It may take a few seconds to read the log files.".center(c))
@@ -71,8 +75,14 @@ endl()
 
 
 # Read usernames from file
-with codecs.open(argv[1], 'r', 'UTF-8') as f:
-    UserNames = f.read().splitlines()
+process = subprocess.run("./smbu_bash",check=True, stdout=subprocess.PIPE, universal_newlines=True)
+names = str(process.stdout)
+
+UserNames = (re.split('; |\n',names))
+
+last = int(len(UserNames))-1
+del UserNames[last]
+UserNames.append("lnx03")
 
 
 # Read Filenames
