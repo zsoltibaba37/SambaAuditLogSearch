@@ -3,10 +3,10 @@ SambaAuditLogSearch
 
 ### First step
 
-- <a href="http://linux-sys-adm.com/ubuntu-16.04-lts-how-to-configure-samba-full-audit/">How To Configure SAMBA Full Audit.</a> 
+- <a href="http://linux-sys-adm.com/ubuntu-16.04-lts-how-to-configure-samba-full-audit/">How To Configure SAMBA Full Audit.</a>
 
 
-- Create a bash script (of course chmod 775), and copy to /usr/local/bin folder. 
+- Create a bash script (of course chmod 775), and copy to /usr/local/bin folder.
 Name is as you want. I name it audit_file_copy.
 
 ```
@@ -38,7 +38,6 @@ $ crontab -e
 
 ```
 $ ./ausearch.py usernames.txt /AUDIT_LOG
-
 ```
 
 #### Note
