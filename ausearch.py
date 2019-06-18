@@ -13,7 +13,7 @@ import subprocess
 import re
 
 
-if len(argv) < 2 :
+if len(argv) < 2:
     print("Missing argument! ! !")
     print("Usage:\n"
           "$ ./ausearch.py /somewhere/audit_log")
@@ -54,7 +54,7 @@ def endl():
 def unique(list1):
     unique_list = []
     for x in list1:
-       if x not in unique_list:
+        if x not in unique_list:
             unique_list.append(x)
     return unique_list
 
@@ -73,10 +73,10 @@ endl()
 
 
 # Read usernames from file
-process = subprocess.run("./smbu_bash",check=True, stdout=subprocess.PIPE, universal_newlines=True)
+process = subprocess.run("./smbu_bash", check=True, stdout=subprocess.PIPE, universal_newlines=True)
 names = str(process.stdout)
 
-UserNames = (re.split('; |\n',names))
+UserNames = (re.split('; |\n', names))
 
 last = int(len(UserNames))-1
 del UserNames[last]
@@ -84,7 +84,7 @@ UserNames.append("lnx03")
 
 
 # Read Filenames
-for (dirpath, dirnames, filenames) in walk(LogPath, topdown = True):
+for (dirpath, dirnames, filenames) in walk(LogPath, topdown=True):
     FileNames.extend(filenames)
     break
 FileNames.sort()
