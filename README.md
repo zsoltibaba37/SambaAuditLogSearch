@@ -26,7 +26,6 @@ $ crontab -e
 
 
 #### Important
-
 **It can now only be used with "sudo". Because a bash script uses 'pdbedit'.
 
 **The "ausearch.py" program does not check the contents of the AUDIT_LOG folder.**
