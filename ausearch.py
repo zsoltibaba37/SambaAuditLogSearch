@@ -6,10 +6,8 @@ __license__ = "MIT"
 __version__ = "1.0"
 
 from inpcheck import *
-import os
-from os import walk
-import sys
-from sys import argv, platform
+from os import walk, system
+from sys import argv, platform, exit
 import codecs
 import subprocess
 import re
@@ -18,8 +16,8 @@ import re
 if len(argv) < 2 :
     print("Missing argument! ! !")
     print("Usage:\n"
-          "Linux   $ ./ausearch.py /somewhere/audit_log")
-    sys.exit(1)
+          "$ ./ausearch.py /somewhere/audit_log")
+    exit(1)
 
 
 c = 120
@@ -30,9 +28,9 @@ AllFileContent = []
 
 def clearscreen():
     if platform == "linux" or platform == "linux2":
-        os.system('clear')
+        system('clear')
     elif platform == "win32":
-        os.system('cls')
+        system('cls')
 
 
 def fline():
@@ -123,7 +121,7 @@ def main():
             # Ask the filename or the file extension
             Data = []
             while len(Data) == 0:
-                FindData = name_check("Mi a fájl neve vagy kiterjesztése? - What is the file name or extension? [Ex.: xls; 4012_1.pdf]: ")
+                FindData = name_check("Mi a fájl neve vagy kiterjesztése? - What is the file name or extension? [Ex.: xls; 123.pdf]: ")
 
                 # This is the end result
                 Data = [s for s in User if FindData in s]
@@ -154,7 +152,7 @@ def main():
             clearscreen()
             #############################################################################################################
     except KeyboardInterrupt:
-        sys.exit("\nViszlát - Bye Bye")
+        exit("\nViszlát - Bye Bye")
 
 
 if __name__ == '__main__':
