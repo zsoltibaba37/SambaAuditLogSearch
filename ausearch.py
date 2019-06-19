@@ -108,15 +108,19 @@ def main():
             #############################################################################################################
             # Readout and ask the user name
             clearscreen()
-            fline()
-            for i, username in enumerate(UserNames):
-                print(f"{i} - {username}")
+            User = []
+            while len(User) == 0:
+                fline()
+                for i, username in enumerate(UserNames):
+                    print(f"{i} - {username}")
 
-            fline()
-            User = range_check("Válassz felhasználót. - Choose a user. [Ex.: 1]: ", 0, len(UserNames)-1)
+                fline()
+                User = range_check("Válassz felhasználót. - Choose a user. [Ex.: 1]: ", 0, len(UserNames)-1)
 
-            # Collect the selected user data
-            User = [s for s in FilElement if UserNames[User] in s]
+                # Collect the selected user data
+                User = [s for s in FilElement if UserNames[User] in s]
+                if len(User) == 0:
+                    print("Nem talált adatokat! - Can't find Data!")
 
             # Ask the filename or the file extension
             Data = []
