@@ -120,7 +120,7 @@ def main():
                 # Collect the selected user data
                 User = [s for s in FilElement if UserNames[User] in s]
                 if len(User) == 0:
-                    print("Nem talált adatokat! - Can't find Data!")
+                    print("Nem talált adatokat a felhasználóról! - No Data found for the user!")
 
             # Ask the filename or the file extension
             Data = []
