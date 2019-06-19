@@ -28,16 +28,18 @@ $ crontab -e
 #### Important
 **It can now only be used with "sudo". Because a bash script uses 'pdbedit'.**
 
-**The "ausearch.py" program does not check the contents of the AUDIT_LOG folder.**
+**Reads only 'txt' files from the target directory.**
 
-**Opens everything that find in it. (all .txt files)**
+~~**The "ausearch.py" program does not check the contents of the AUDIT_LOG folder.**~~
 
-**Therefore, you should check the contents of the folder before starting it.**
+~~**Opens everything that find in it. (all .txt files)**~~
+
+~~**Therefore, you should check the contents of the folder before starting it.**~~
 
 #### Usage
 
 ```
-$ ./ausearch.py usernames.txt /AUDIT_LOG
+$ ./ausearch.py /AUDIT_LOG
 ```
 
 #### Note
