@@ -3,7 +3,7 @@
 
 __author__ = "Zsolt Pető"
 __license__ = "MIT"
-__version__ = "1.0"
+__version__ = "1.1"
 
 from inpcheck import *
 from os import walk, system
@@ -72,7 +72,7 @@ print("[CTRL-C]-re kilép a programból. - Press [CTRL-C] to exit.".center(c))
 endl()
 
 
-# Read usernames from file
+# Read usernames - sudo required !
 process = subprocess.run("./smbu_bash", check=True, stdout=subprocess.PIPE, universal_newlines=True)
 names = str(process.stdout)
 
@@ -88,7 +88,7 @@ for (dirpath, dirnames, filenames) in walk(LogPath, topdown=True):
     FileNames.extend(filenames)
     break
 FileNames.sort()
-
+FileNames = [ l for l in FileNames if ".txt" in l ]
 
 # Read all Files content
 for y in FileNames:
