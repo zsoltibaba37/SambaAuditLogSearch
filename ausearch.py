@@ -120,7 +120,7 @@ def main():
                 # Collect the selected user data
                 User = [s for s in FilElement if UserNames[User] in s]
                 if len(User) == 0:
-                    print("Nem talált adatokat a felhasználóról! - No Data found for the user!")
+                    print("Nem talált adatokat a felhasználóról! - Could't find information about the user!")
 
             # Ask the filename or the file extension
             Data = []
@@ -130,7 +130,7 @@ def main():
                 # This is the end result
                 Data = [s for s in User if FindData in s]
                 if len(Data) == 0:
-                    print(f"Nem találta a(z) [{FindData}] fájlt! - Can't find [{FindData}] file!")
+                    print(f"Nem találta a(z) [{FindData}] fájlt! - Could't find the [{FindData}] file!")
 
             # How many results to list
             bit = (range_check(f"Hány sort listázzon? - How many lines to list? [min:1 max: {len(Data)}]: ", 1, len(Data))) * -1
