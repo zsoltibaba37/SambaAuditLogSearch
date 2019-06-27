@@ -16,7 +16,7 @@ import re
 if len(argv) < 2:
     print("Missing argument! ! !")
     print("Usage:\n"
-          "$ ./ausearch.py /somewhere/audit_log")
+          "$ ./pyause /somewhere/audit_log")
     exit(1)
 
 

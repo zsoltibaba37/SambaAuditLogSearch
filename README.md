@@ -39,7 +39,7 @@ $ crontab -e
 #### Usage
 
 ```
-$ ./ausearch.py /AUDIT_LOG
+$ ./pyause /AUDIT_LOG
 ```
 
 #### Note
