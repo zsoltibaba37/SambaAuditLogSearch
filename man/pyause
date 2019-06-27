@@ -1,0 +1,21 @@
+.\" Manpage a pyause parancshoz.
+.\" Vedd fel a kapcsolatot Zsoltival, ha hibát találsz vagy elírást.
+.TH man 1 "2019 Jun 27" "1.1" "pyause man page"
+.SH NAME
+pyause\- Az audit fájlokban lehet rákeresni, hogy ki, mikor, mit csinált.
+.SH SYNOPSIS
+pyause /AUDIT_LOG
+.SH DESCRIPTION
+Az audit fájlokban lehet rákeresni, hogy ki, mikor, mit csinált.
+.SH EXAMPLES
+ Válassz felhasználót. - Choose a user. [Ex.: 1]:
+.TP
+ Mi a fájl neve vagy kiterjesztése? - What is the file name or extension? [Ex.: xls; 123.pdf]:
+.TP
+ Hány sort listázzon? - How many lines to list? [min:1 max: 606]:
+.SH OPTIONS
+Nincsennek opciók
+.SH BUGS
+Nincsennek ismert hibák.
+.SH AUTHOR
+Zsolti
