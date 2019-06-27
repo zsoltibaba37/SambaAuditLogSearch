@@ -14,8 +14,8 @@ import re
 
 
 if len(argv) < 2:
-    print("Missing argument! ! !")
-    print("Usage:\n"
+    print("\nMissing argument! ! !")
+    print("\nUsage:\n"
           "$ ./pyause /somewhere/audit_log")
     exit(1)
 
