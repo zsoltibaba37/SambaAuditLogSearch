@@ -23,7 +23,12 @@ $ crontab -e
 # m h  dom mon dow   command
 00 13 * * 1-6 /usr/local/bin/audit_file_copy
 ```
+#### Install
 
+sudo cp -p pyause /usr/local/bin/
+sudo cp -p smbu_bash /usr/local/bin/
+sudo cp -p inpcheck.py /usr/local/bin/
+sudo chown root:root /usr/local/bin/*
 
 #### Important
 **It can now only be used with "sudo". Because a bash script uses 'pdbedit'.**

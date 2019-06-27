@@ -73,7 +73,7 @@ endl()
 
 
 # Read usernames - sudo required !
-process = subprocess.run("./smbu_bash", check=True, stdout=subprocess.PIPE, universal_newlines=True)
+process = subprocess.run("smbu_bash", check=True, stdout=subprocess.PIPE, universal_newlines=True)
 names = str(process.stdout)
 
 UserNames = (re.split('; |\n', names))
