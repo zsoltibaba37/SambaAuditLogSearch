@@ -83,7 +83,7 @@ del UserNames[last]
 UserNames.append("lnx03")
 
 
-# Read Filenames
+# Read .txt Filenames
 for (dirpath, dirnames, filenames) in walk(LogPath, topdown=True):
     FileNames.extend(filenames)
     break
