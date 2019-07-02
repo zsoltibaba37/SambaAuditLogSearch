@@ -35,7 +35,7 @@ sudo chown root:root /usr/local/bin/*
 #### Important
 **It can now only be used with "sudo".**
 
-**Bash script impleneted.**
+**Bash script integrated the python code.**
 
 **Reads only 'txt' files from the target directory.**
 
