@@ -102,7 +102,7 @@ for y in FileNames:
             AllFileContent.append(i)
 
 
-# Filter repeated message
+# Filter 'repeated message'
 FilElement = [s for s in AllFileContent if "message repeated" not in s]
 
 
