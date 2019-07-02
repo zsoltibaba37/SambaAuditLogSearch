@@ -82,7 +82,9 @@ UserNames = [i.split(':', 1)[0] for i in UNames]
 
 last = int(len(UserNames))-1
 del UserNames[last]
-UserNames.append("lnx03")
+# Uncomment the following line, and change 'lnx03' to anything.
+# I also use the hostname for the search, because it then searches for all the information.
+#UserNames.append("lnx03")
 
 
 # Read .txt Filenames
