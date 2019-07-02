@@ -3,7 +3,7 @@
 
 __author__ = "Zsolt Pető"
 __license__ = "MIT"
-__version__ = "1.1"
+__version__ = "1.2"
 
 from inpcheck import *
 from os import walk, system
@@ -25,6 +25,7 @@ LogPath = argv[1]
 FileNames = []
 AllFileContent = []
 
+smbu = "sudo pdbedit -L".split()
 
 def clearscreen():
     if platform == "linux" or platform == "linux2":
@@ -73,10 +74,11 @@ endl()
 
 
 # Read usernames - sudo required !
-process = subprocess.run("smbu_bash", check=True, stdout=subprocess.PIPE, universal_newlines=True)
+process = subprocess.run(smbu, check=True, stdout=subprocess.PIPE, universal_newlines=True)
 names = str(process.stdout)
 
-UserNames = (re.split('; |\n', names))
+UNames = (re.split('; |\n', names))
+UserNames = [i.split(':', 1)[0] for i in UNames]
 
 last = int(len(UserNames))-1
 del UserNames[last]

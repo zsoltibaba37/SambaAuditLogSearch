@@ -27,15 +27,15 @@ $ crontab -e
 ```
 sudo cp -p pyause /usr/local/bin/
 
-sudo cp -p smbu_bash /usr/local/bin/
-
 sudo cp -p inpcheck.py /usr/local/bin/
 
 sudo chown root:root /usr/local/bin/*
 ```
 
 #### Important
-**It can now only be used with "sudo". Because a bash script uses 'pdbedit'.**
+**It can now only be used with "sudo".**
+
+**Bash script impleneted **
 
 **Reads only 'txt' files from the target directory.**
 
@@ -56,3 +56,7 @@ $ ./pyause /AUDIT_LOG
 Returns results back in time. If there are 2135 matches and the choice is 20.
 
 Then the program show the last 20 line.
+
+#### Version
+
+1.2 - Python code Include the bash script.
