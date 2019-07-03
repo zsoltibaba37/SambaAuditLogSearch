@@ -23,7 +23,7 @@ $ crontab -e
 # m h  dom mon dow   command
 00 13 * * 1-6 /usr/local/bin/audit_file_copy
 ```
-#### Install
+### Install
 ```
 sudo cp -p pyause /usr/local/bin/
 
@@ -32,7 +32,7 @@ sudo cp -p inpcheck.py /usr/local/bin/
 sudo chown root:root /usr/local/bin/*
 ```
 
-#### Important
+### Important
 **It can now only be used with "sudo".**
 
 **Bash script integrated the python code.**
@@ -51,12 +51,12 @@ sudo chown root:root /usr/local/bin/*
 $ ./pyause /AUDIT_LOG
 ```
 
-#### Note
+### Note
 
 Returns results back in time. If there are 2135 matches and the choice is 20.
 
 Then the program show the last 20 line.
 
-#### Version
+### Version
 
 1.2 - Python code Include the bash script.
