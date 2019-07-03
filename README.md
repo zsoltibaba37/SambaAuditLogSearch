@@ -36,7 +36,7 @@ sudo chown root:root /usr/local/bin/*
 ### Usage
 
 ```
-$ ./pyause /AUDIT_LOG
+$ pyause /AUDIT_LOG
 ```
 
 ### Important
