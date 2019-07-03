@@ -37,6 +37,16 @@ sudo chown root:root /usr/local/bin/*
 
 ```
 $ pyause /AUDIT_LOG
+
+
+ Short help
+
+$ pyause -h 
+
+or
+
+$ pyause -help
+
 ```
 
 ### Important
