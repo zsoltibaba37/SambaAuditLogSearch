@@ -23,6 +23,7 @@ $ crontab -e
 # m h  dom mon dow   command
 00 13 * * 1-6 /usr/local/bin/audit_file_copy
 ```
+
 ### Install
 ```
 sudo cp -p pyause /usr/local/bin/
@@ -30,6 +31,12 @@ sudo cp -p pyause /usr/local/bin/
 sudo cp -p inpcheck.py /usr/local/bin/
 
 sudo chown root:root /usr/local/bin/*
+```
+
+### Usage
+
+```
+$ ./pyause /AUDIT_LOG
 ```
 
 ### Important
@@ -45,11 +52,6 @@ sudo chown root:root /usr/local/bin/*
 
 ~~**Therefore, you should check the contents of the folder before starting it.**~~
 
-#### Usage
-
-```
-$ ./pyause /AUDIT_LOG
-```
 
 ### Note
 
