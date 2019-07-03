@@ -166,11 +166,13 @@ def main():
                 if len(Data) == 0:
                     print(f"Nem találta a(z) [{FindData}] fájlt! - Could't find the [{FindData}] file!")
 
-            # How many results to list
-            bit = (range_check(f"Hány sort listázzon? - How many lines to list? [min:1 max: {len(Data)}]: ", 1, len(Data))) * -1
-
             # Unique = Sort out the same lines
             EndData = unique(Data)
+
+
+            # How many results to list
+            bit = (range_check(f"Hány sort listázzon? - How many lines to list? [min:1 max: {len(EndData)}]: ", 1, len(EndData))) * -1
+
 
             beginl()
             # Writes out the requested last result
