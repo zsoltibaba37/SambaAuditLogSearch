@@ -3,22 +3,13 @@
 
 __author__ = "Zsolt Pető"
 __license__ = "MIT"
-__version__ = "1.2"
+__version__ = "1.3"
 
-from inpcheck import *
-from os import walk, system
+from os import walk, system, path
 from sys import argv, platform, exit
 import codecs
 import subprocess
 import re
-import os
-
-# Check argument
-if len(argv) < 2:
-    print("\nMissing argument! ! !")
-    print("\nUsage:\n"
-          "$ pyause /somewhere/audit_log")
-    exit(1)
 
 
 # Usage message
@@ -31,32 +22,46 @@ def usage():
     exit()
 
 
-c = 120
+# Check the all argument is exist
+if len(argv) < 2:
+    print("\nMissing argument! ! !")
+    usage()
+#   and  exit()
+
 
 LogPath = argv[1]
+
 
 # Help message
 if LogPath == '-h' or LogPath == '-help':
     usage()
-    exit()
+#   and  exit()
 
 
-# Check: the folder is exist?
-if (os.path.isdir(LogPath)) != True:
+# Check the folder is exist
+if (path.isdir(LogPath)) != True:
     print("\nThe folder doesn't exist ! ! !")
     usage()
-    exit()
+#   and exit()
 
 
+# Check OS and setup 'forward slash' or 'backslash'
+if platform == "linux" or platform == "linux2":
+    fo = '/'
+elif platform == "win32":
+    fo = '\\'
+
+
+c = 120                 # Full line lenght
 FileNames = []
 AllFileContent = []
 
 
-# Bash script
-smbu = "sudo pdbedit -L".split()
-
-
+# Create functions
 def clearscreen():
+    """
+    Check OS and setting the right method.
+    """
     if platform == "linux" or platform == "linux2":
         system('clear')
     elif platform == "win32":
@@ -64,75 +69,134 @@ def clearscreen():
 
 
 def fline():
+    """
+    Print # * 120.
+    """
     print("#"*c)
 
 
 def line():
+    """
+    Line feed.
+    """
     print("")
 
 
 def beginl():
+    """
+    Print a full line and line feed.
+    """
     fline()
     line()
 
 
 def endl():
+    """
+    Line feed and print a full line.
+    """
     line()
     fline()
 
 
 def unique(list1):
+    """
+    Filter multiple items from the list.
+    """
     unique_list = []
     for x in list1:
         if x not in unique_list:
             unique_list.append(x)
     return unique_list
 
-
-if platform == "linux" or platform == "linux2":
-    fo = '/'
-elif platform == "win32":
-    fo = '\\'
-
-
-beginl()
-print("A log fájlok beolvasása eltarthat néhány másodpercig.".center(c))
-print("It may take a few seconds to read the log files.".center(c))
-print("[CTRL-C]-re kilép a programból. - Press [CTRL-C] to exit.".center(c))
-endl()
-
-
-# Read usernames - sudo required !
-process = subprocess.run(smbu, check=True, stdout=subprocess.PIPE, universal_newlines=True)
-names = str(process.stdout)
-
-UNames = (re.split('; |\n', names))
-UserNames = [i.split(':', 1)[0] for i in UNames]
-
-last = int(len(UserNames))-1
-del UserNames[last]
-UserNames.sort()
-# Uncomment the following line, and change 'lnx03' to anything.
-# I also use the hostname for the search, because it then searches for all the information.
-#UserNames.append("lnx03")
+def name_check(question):
+    """
+    Check the input field.
+    Return the string if all character is string.
+    Include 'space' character check.
+    The entered string can be arbitrary.
+    Example:
+        a = name_check('What's your real name: ')
+    """
+    while True:
+        try:
+            s = input(question)
+            f = float(s)
+        except ValueError:
+            break
+    return s
 
 
-# Read .txt Filenames
-for (dirpath, dirnames, filenames) in walk(LogPath, topdown=True):
-    FileNames.extend(filenames)
-    break
-FileNames.sort()
-FileNames = [ l for l in FileNames if ".txt" in l ]
+def range_check(question,a,b):
+    """
+    Checks your choice between two numbers.
+    Returns the selected number.
+    Example:
+        a = range_check('Please choose in the range: ',1,10)
+    """
+    y = 0
+    while y != 1:
+        try:
+            i = int(input(question))
+            if i in range(a,b+1):
+               y = 1
+               pass
+            else:
+               print("The number is in out of range!")
+               y = 0
+        except ValueError:
+            print ("This is not a number, or not an integer value!")
+            y = 0
+    return i
 
-# Read all Files content
-for y in FileNames:
-    with codecs.open(LogPath+fo+y, 'r', 'UTF-8') as f:
-        for i in f:
-            AllFileContent.append(i)
+
+# Bash script to find genuine "samba" users.
+smbu = "sudo pdbedit -L".split()
 
 
-# Filter 'repeated message'
-FilElement = [s for s in AllFileContent if "message repeated" not in s]
+# Reading the data only once at the beginning of the program. 
+try:
+    # Information about running the program.
+    beginl()
+    print("A log fájlok beolvasása eltarthat néhány másodpercig.".center(c))
+    print("It may take a few seconds to read the log files.".center(c))
+    print("[CTRL-C]-re kilép a programból. - Press [CTRL-C] to exit.".center(c))
+    endl()
+
+
+    # Read usernames - sudo required !
+    process = subprocess.run(smbu, check=True, stdout=subprocess.PIPE, universal_newlines=True)
+    names = str(process.stdout)
+
+    UNames = (re.split('; |\n', names))
+    UserNames = [i.split(':', 1)[0] for i in UNames]
+
+    last = int(len(UserNames))-1
+    del UserNames[last]
+    UserNames.sort()
+    # I also use the hostname for the search, because it then searches for all the information.
+    # Uncomment the following line, and change 'lnx03' to anything.
+    #UserNames.append("lnx03")
+
+
+    # Read .txt Filenames
+    for (dirpath, dirnames, filenames) in walk(LogPath, topdown=True):
+        FileNames.extend(filenames)
+        break
+    FileNames.sort()
+    FileNames = [ l for l in FileNames if ".txt" in l ]
+
+
+    # Read all Files content
+    for y in FileNames:
+        with codecs.open(LogPath+fo+y, 'r', 'UTF-8') as f:
+            for i in f:
+                AllFileContent.append(i)
+
+
+    # Filter 'repeated message'
+    FilElement = [s for s in AllFileContent if "message repeated" not in s]
+except KeyboardInterrupt:
+    exit("\nViszlát - Bye Bye")
 
 
 # Main function
@@ -142,14 +206,18 @@ def main():
             #############################################################################################################
             # Readout and ask the user name
             clearscreen()
+            beginl()
+            print(f"Samba Audit Log Search - version: {__version__}".center(c))
+            print("[CTRL-C]-re kilép a programból. - Press [CTRL-C] to exit.".center(c))
+            endl()
             User = []
             while len(User) == 0:
-                fline()
+                #fline()
                 for i, username in enumerate(UserNames):
                     print(f"{i} - {username}")
 
                 fline()
-                User = range_check("Válassz felhasználót. - Choose a user. [Ex.: 1]: ", 0, len(UserNames)-1)
+                User = range_check("Válassz felhasználót. - Choose a user. [e.g.: 12; 8]: ", 0, len(UserNames)-1)
 
                 # Collect the selected user data
                 User = [s for s in FilElement if UserNames[User] in s]
@@ -159,7 +227,7 @@ def main():
             # Ask the filename or the file extension
             Data = []
             while len(Data) == 0:
-                FindData = name_check("Mi a fájl neve vagy kiterjesztése? - What is the file name or extension? [Ex.: xls; 123.pdf]: ")
+                FindData = name_check("Mi a fájl neve vagy kiterjesztése? - What is the file name or extension? [e.g.: xls; 123.pdf]: ")
 
                 # This is the end result
                 Data = [s for s in User if FindData in s]
@@ -175,7 +243,7 @@ def main():
 
 
             beginl()
-            # Writes out the requested last result
+            # Writes out the requested results
             y, x = 1, 1
             for d in EndData[bit:]:
                 print(f"{y}. {d}", end='')
