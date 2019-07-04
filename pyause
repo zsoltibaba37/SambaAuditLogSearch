@@ -213,8 +213,11 @@ def main():
             User = []
             while len(User) == 0:
                 #fline()
+                a = " "
                 for i, username in enumerate(UserNames):
-                    print(f"{i} - {username}")
+                    if i >= 10:
+                        a = ""
+                    print(a + f"{i} - {username}")
 
                 fline()
                 User = range_check("Válassz felhasználót. - Choose a user. [e.g.: 12; 8]: ", 0, len(UserNames)-1)
