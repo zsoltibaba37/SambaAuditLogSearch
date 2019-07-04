@@ -28,8 +28,6 @@ $ crontab -e
 ```
 sudo cp -p pyause /usr/local/bin/
 
-sudo cp -p inpcheck.py /usr/local/bin/
-
 sudo chown root:root /usr/local/bin/*
 ```
 
@@ -56,13 +54,6 @@ $ pyause -help
 
 **Reads only 'txt' files from the target directory.**
 
-~~**The "ausearch.py" program does not check the contents of the AUDIT_LOG folder.**~~
-
-~~**Opens everything that find in it. (all .txt files)**~~
-
-~~**Therefore, you should check the contents of the folder before starting it.**~~
-
-
 ### Note
 
 Returns results back in time. If there are 2135 matches and the choice is 20.
@@ -71,4 +62,5 @@ Then the program show the last 20 line.
 
 ### Version
 
+1.3 - Bigger repair. The 'inputcheck.py' built in.
 1.2 - Python code Include the bash script.
