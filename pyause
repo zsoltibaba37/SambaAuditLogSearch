@@ -14,17 +14,16 @@ import re
 
 # Usage message
 def usage():
-    print("\nUsage:\n"
-          "$ pyause /somewhere/audit_log")
-    print("\nor")
-    print("\n$ pyause -h")
-    print("\n$ pyause -help\n")
+    print("pyause v1.3  Copyright (c) 2017-2018, Zsolt Pető")
+    print("Usage: pyause [options] or <path>\n")
+    print("  -h, --help        display this help and exit")
+    print("  <path>            directory destination where txt files located")
     exit()
 
 
 # Check the all argument is exist
 if len(argv) < 2:
-    print("\nMissing argument! ! !")
+    print("\nMissing option or path !!!\n")
     usage()
 #   and  exit()
 
@@ -40,7 +39,7 @@ if LogPath == '-h' or LogPath == '-help':
 
 # Check the folder is exist
 if (path.isdir(LogPath)) != True:
-    print("\nThe folder doesn't exist ! ! !")
+    print("\nThe folder doesn't exist !!!\n")
     usage()
 #   and exit()
 
