@@ -111,9 +111,6 @@ def unique(list1):
 def name_check(question):
     """
     Check the input field.
-    Return the string if all character is string.
-    Include 'space' character check.
-    The entered string can be arbitrary.
     Example:
         a = name_check('What's your real name: ')
     """
