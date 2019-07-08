@@ -122,6 +122,7 @@ def name_check(question):
         s = input(question)
         if len(s) == 0:
             y = False
+            print("Write something!")
         else:
             y = True
     s = str(s)
