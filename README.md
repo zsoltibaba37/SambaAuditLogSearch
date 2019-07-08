@@ -62,6 +62,6 @@ Then the program show the last 20 line.
 
 ### Version
 
-1.3 - Bigger repair. The 'inputcheck.py' built in.
+1.3 - Bigger repair. The 'inputcheck.py' built in. Fix name_check function.
 
 1.2 - Python code Include the bash script.
