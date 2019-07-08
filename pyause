@@ -107,6 +107,7 @@ def unique(list1):
             unique_list.append(x)
     return unique_list
 
+
 def name_check(question):
     """
     Check the input field.
@@ -116,12 +117,14 @@ def name_check(question):
     Example:
         a = name_check('What's your real name: ')
     """
-    while True:
-        try:
-            s = input(question)
-            f = float(s)
-        except ValueError:
-            break
+    y = False
+    while y != True:
+        s = input(question)
+        if len(s) == 0:
+            y = False
+        else:
+            y = True
+    s = str(s)
     return s
 
 
