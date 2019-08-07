@@ -11,17 +11,13 @@ import codecs
 import subprocess
 import re
 
-RootCheck = getuid()
 
-if RootCheck is not 0:
-    print ("\nNem vagy rendszergazda! - You are not root!")
-    exit("\nViszlát - Bye Bye")
 
 # Usage message
 def usage():
     print(f"pyause v{__version__}  Copyright (c) 2017-2018, Zsolt Pető")
     print("Usage: pyause [options] or <path>\n")
-    print("  -h, --help        display this help and exit")
+    print("  -h, -help         display this help and exit")
     print("  <path>            directory destination where txt files located")
     exit()
 
@@ -40,6 +36,15 @@ LogPath = argv[1]
 if LogPath == '-h' or LogPath == '-help':
     usage()
 #   and  exit()
+
+
+RootCheck = getuid()
+
+
+# Check root privileg
+if RootCheck is not 0:
+    print ("\nNem vagy rendszergazda! - You are not root!")
+    exit("\nViszlát - Bye Bye")
 
 
 # Check the folder is exist
