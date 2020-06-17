@@ -4,7 +4,7 @@
 .SH NAME
 pyause\- Az audit fájlokban lehet rákeresni, hogy ki, mikor, mit csinált.
 .SH SYNOPSIS
-pyause /AUDIT_LOG
+sudo pyause /AUDIT_LOG
 .SH DESCRIPTION
 Az audit fájlokban lehet rákeresni, hogy ki, mikor, mit csinált.
 .SH EXAMPLES
