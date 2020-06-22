@@ -3,7 +3,7 @@ SambaAuditLogSearch
 
 ### First step
 
-- [How To Configure SAMBA Full Audit.](http://linux-sys-adm.com/ubuntu-16.04-lts-how-to-configure-samba-full-audit/)
+- [How To Configure SAMBA Full Audit.](https://linux-sys-adm.com/ubuntu-16.04-lts-how-to-configure-samba-full-audit/)
 
 
 - Create a bash script (of course chmod 775), and copy to /usr/local/bin folder.
