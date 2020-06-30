@@ -1,0 +1,158 @@
+
+
+Ubuntu 16.04 LTS – How To Configure SAMBA Full Audit
+
+
+August 24, 2016 m.slavov
+
+Modified 
+Jun 30, 2020 zs.pető
+
+This guide explains how to configure Samba Full Audit in Ubuntu 16.04 with anonymous & secured samba servers.
+
+Advanced Configuration
+
+In this part I will show you how to configure .
+
+Step 11 – Open config file nano /etc/samba/smb.conf and add the following line:
+  vfs objects = full_audit
+  full_audit:success = mkdir rmdir read pread write pwrite rename unlink
+  full_audit:prefix = %u|%I|%m|%S
+  full_audit:failure = none
+  full_audit:facility = local5
+  full_audit:priority = notice
+  recycle:repository = /home/recycle/
+  recycle:keeptree = yes
+  recycle:versions = yes
+  log file = /var/log/samba/samba.log
+You can add more attries but I strongly recommended to add only this mkdir rename unlink rmdir write. These are other attributes for full_audit:success = connect disconnect opendir mkdir rmdir closedir open close read pread write pwrite sendfile rename unlink chmod fchmod chown fchown chdir lock symlink
+After this your file will look like:
+[ftp]
+  comment = ftp
+  path = /srv/samba/ftp
+  browseable = yes
+  valid users = mslavov, YOURUSER, test, test1
+  write list = mslavov, YOURUSER, test, test1
+  create mask = 0775
+  force create mode = 0775
+  public = no
+  guest only = no
+  directory mask = 0775
+  force directory mode = 0775
+  store dos attributes = Yes
+  hide unreadable = yes
+  hide files = /examples.desktop
+  vfs objects = full_audit
+  full_audit:success = mkdir rmdir read pread write pwrite rename unlink
+  full_audit:prefix = %u|%I|%m|%S
+  #full_audit:failure = none
+  full_audit:failure = connect
+  full_audit:facility = local5
+  full_audit:priority = notice
+  recycle:repository = /home/recycle/
+  recycle:keeptree = yes
+  recycle:versions = yes
+  log file = /var/log/samba/samba.log
+
+First Option – Configuring syslogd
+
+Step 12 – Create log file for samba audit. Execute the following command nano /etc/rsyslog.d/50-default.conf and find *.* …..line and make the changes to look like this:
+auth,authpriv.*       /var/log/auth.log
+*.*;local5,auth,authpriv.none*       -/var/log/syslog
+local5.notice*       /var/log/samba/audit.log
+
+Step 13 – Create new file.
+root@mail:/# touch /var/log/samba/audit.log
+root@mail:/# chown syslog:adm /var/log/samba/audit.log
+
+Step 14 – Open this file /etc/logrotate.d/samba and add the following lines:
+/var/log/samba/audit.log {
+    weekly
+    missingok
+    rotate 7
+    postrotate
+         reload rsyslog > /dev/null 2>&1 || true
+    endscript
+    compress
+    notifempty
+}
+
+Second Option – Configuring rsyslogd
+
+I recommend second option
+Step 15 – Create new file.
+root@mail:/# touch /etc/rsyslog.d/00-samba-audit.conf
+
+Step 16 – Add this line.
+root@mail:/# local5.notice /var/log/samba/audit.log
+
+Step 17 – Create file for audit and change permission.
+-- This is not need, because we are created this file before. --
+root@mail:/# touch /var/log/samba-audit.log
+
+Step 18 – Restart rsyslog and samba service.
+root@mail:/# reboot
+
+Step 19 – Now you can see audit for test folder for Jun 12
+root@mail:/# cat /var/log/samba-audit.log | grep test | grep “Jun 12″
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|rename|ok|New folder|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|fstat|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|getxattr|ok|test|user.DOSATTRIB
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|close|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|stat|ok|./test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|sys_acl_get_file|ok|./test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|sys_acl_get_file|ok|./test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|get_nt_acl|ok|./test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|getxattr|ok|./test|user.DOSATTRIB
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|stat|ok|./test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|sys_acl_get_file|ok|./test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|sys_acl_get_file|ok|./test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|get_nt_acl|ok|./test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|getxattr|ok|./test|user.DOSATTRIB
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|stat|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|getxattr|ok|test|user.DOSATTRIB
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|stat|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|sys_acl_get_file|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|sys_acl_get_file|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|get_nt_acl|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|stat|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|sys_acl_get_file|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|sys_acl_get_file|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|get_nt_acl|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|open|ok|r|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|fstat|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|create_file|ok|0x100080|file|open|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|stat|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|sys_acl_get_file|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|sys_acl_get_file|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|get_nt_acl|ok|test
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|getxattr|ok|test|user.DOSATTRIB
+Jun 12 16:23:36 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|close|ok|test
+Jun 12 16:23:38 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|stat|ok|test
+Jun 12 16:23:38 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|getxattr|ok|test|user.DOSATTRIB
+Jun 12 16:23:38 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|stat|ok|test
+Jun 12 16:23:38 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|sys_acl_get_file|ok|test
+Jun 12 16:23:38 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|sys_acl_get_file|ok|test
+Jun 12 16:23:38 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|get_nt_acl|ok|test
+Jun 12 16:23:38 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|open|ok|r|test
+Jun 12 16:23:38 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|fstat|ok|test
+Jun 12 16:23:38 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|close|ok|test
+Jun 12 16:23:38 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|stat|ok|test
+Jun 12 16:23:38 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|sys_acl_get_file|ok|test
+
+8 Theme – How to create script for BACKUP and use crontab on Ubuntu (Server) 14.04 LTS Step-by-Step
+
+Share
+Bookmark the permalink.
+Post navigation
+← Ubuntu 16.04 LTS – How To Install and Configure SAMBA
+Ubuntu 16.04 LTS – How To Install PHP, phpMyAdmin and MySQL →
+Leave a Reply
+
+Your email address will not be published. Required fields are marked *
+Name *
+Email *
+Website
+Comment
+
+Developed by MartinSlavov	
