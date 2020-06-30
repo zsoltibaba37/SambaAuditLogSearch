@@ -1,4 +1,8 @@
 #!/bin/bash
 #
+# A /var/log/samba/audit.log fájl másolása a /AUDIT_LOG (a dátum a fájl végéhez hozzáadva) könyvtárba.
 #
-cat /var/log/samba/audit.log > /AUDIT_LOG/audit_files_$(date +%F).txt
+if [ -s /var/log/samba/audit.log ]
+then
+    cat /var/log/samba/audit.log > /ISO_DOK/AUDIT_LOG/audit_ISO_DOK_files_$(date +%F).txt
+fi

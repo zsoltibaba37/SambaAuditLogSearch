@@ -10,11 +10,12 @@ SambaAuditLogSearch
 Name is as you want. I name it audit_file_copy.
 
 ```
-#!/bin/bash
-#
-cat /var/log/samba/audit.log > /AUDIT_LOG/audit_files_$(date +%F).txt
+if [ -s /var/log/samba/audit.log ]
+then
+    cat /var/log/samba/audit.log > /ISO_DOK/AUDIT_LOG/audit_ISO_DOK_files_$(date +%F).txt
+fi
 ```
-- I setup the crontab, to run Monday to Saturday. Ones a day copy the audit.log file to /AUDIT_LOG folder.
+- I setup the crontab, to run Monday to Saturday. Ones a day copy the audit.log file to /AUDIT_LOG folder if it not empty.
 
 ```
 $ crontab -e
