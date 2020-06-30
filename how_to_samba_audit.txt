@@ -140,19 +140,3 @@ Jun 12 16:23:38 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|close|ok|tes
 Jun 12 16:23:38 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|stat|ok|test
 Jun 12 16:23:38 mail smbd_audit: mslavov|10.10.11.230|ftp|martin-pc|sys_acl_get_file|ok|test
 
-8 Theme – How to create script for BACKUP and use crontab on Ubuntu (Server) 14.04 LTS Step-by-Step
-
-Share
-Bookmark the permalink.
-Post navigation
-← Ubuntu 16.04 LTS – How To Install and Configure SAMBA
-Ubuntu 16.04 LTS – How To Install PHP, phpMyAdmin and MySQL →
-Leave a Reply
-
-Your email address will not be published. Required fields are marked *
-Name *
-Email *
-Website
-Comment
-
-Developed by MartinSlavov	
